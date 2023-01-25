@@ -1,0 +1,102 @@
+<h1 ngClass="titulo">Lista total de estudiantes</h1>
+
+<ul>
+    <li *ngFor="let item of listaEstudiantes">{{item.nombre}} {{item.apellido}} - NOTA 1: {{item.nota1}} - NOTA 2:
+        {{item.nota2}} - PROMEDIO: {{item.promedio}} - ES REGULAR: {{item.esRegular}}</li>
+</ul>
+
+<hr>
+
+<h1 ngClass="titulo">Prueba Binding Template Statements</h1>
+
+<div>
+    <p [ngClass]="unEstudiante.esRegular?'estudianteActivo':'estudianteInactivo'" [style.color]="'white'"
+        [style.font-size]="'25px'" [style.padding]="'10px'">
+        {{unEstudiante.nombre}}
+        {{unEstudiante.apellido}} - ES REGULAR: {{unEstudiante.esRegular}}</p>
+
+    <button (click)="cambiarEstado()" [style.margin]="'10px'">CAMBIAR REGULARIDAD LLAMANDO A FUNCIÓN</button>
+    <button (click)="unEstudiante.esRegular = !unEstudiante.esRegular" [style.margin]="'10px'">CAMBIAR
+        REGULARIDAD SETEANDO CON EL CLICK</button>
+</div>
+
+<hr>
+
+<h1 ngClass=" titulo">Estilo según sexo con [style]</h1>
+
+<ul>
+    <div *ngFor="let item of listaEstudiantes">
+        <li [style.color]="item.sexo == 'F'?'#a70684':'#06a7a7'" [style.margin]="'10px'">
+            {{item.nombre}} {{item.apellido}}
+        </li>
+    </div>
+</ul>
+
+<hr>
+
+<h1 ngClass="titulo">Estilo según promedio mayor o igual a 7 con [ngClass]</h1>
+
+<ul>
+    <div *ngFor="let item of listaEstudiantes">
+        <li [ngClass]="item.promedio>=7?'promedioAlto':'promedioBajo'">
+            {{item.nombre}} {{item.apellido}}
+        </li>
+    </div>
+</ul>
+
+<hr>
+
+<h1 ngClass="titulo">Prueba lista ngStyle, ngFor y Binding Template Statement</h1>
+
+<ul>
+    <div *ngFor="let item of listaEstudiantes" [ngStyle]="{'display':'flex'}">
+        <li [ngClass]="item.esRegular?'estudianteActivo':'estudianteInactivo'"
+            [ngStyle]="{'margin':'10px','padding':'10px'}">
+            {{item.nombre}}</li>
+        <button (click)="this.item.esRegular = !this.item.esRegular" [ngStyle]="{'margin':'10px'}">CAMBIAR
+            ESTADO</button>
+    </div>
+</ul>
+
+<hr>
+
+<h1 ngClass="titulo">Solamente estudiantes activos - [*ngIf]</h1>
+
+<ul>
+    <div *ngFor="let item of listaEstudiantes">
+        <li *ngIf="item.esRegular" ngClass="estudiantesRegulares">
+            {{item.nombre}} {{item.apellido}} - Cantidad de materias aprobadas:
+            {{item.cantidadMateriasAprobadas}}
+        </li>
+    </div>
+</ul>
+
+<hr>
+
+<h1 ngClass="titulo">Solamente estudiantes con ambas notas mayor o igual a 7 - [*ngIf]</h1>
+
+<ul>
+    <div *ngFor="let item of listaEstudiantes">
+        <li *ngIf="item.nota1 >=7 && item.nota2>=7" ngClass="ambasNotasAprobadas">
+            {{item.nombre}} {{item.apellido}} - Cantidad de materias aprobadas:
+            {{item.cantidadMateriasAprobadas}}
+        </li>
+    </div>
+</ul>
+
+<hr>
+
+<h1 ngClass="titulo">ngSwitch y Directiva personalizada</h1>
+
+<div [ngSwitch]="unEstudiante.nombre">
+    <div *ngSwitchCase="'Leonardo'" appDirectivaPersonalizada>LEONARDO L.</div>
+    <div *ngSwitchCase="'Leandro'" appDirectivaPersonalizada>LEANDRO P.</div>
+    <div *ngSwitchCase="'Lionel'" appDirectivaPersonalizada>LIONEL M.</div>
+    <div *ngSwitchDefault>Default</div>
+</div>
+
+<div appDirectivaPersonalizada [ngStyle]="{'margin-top':'10px'}">
+    <button (click)="this.unEstudiante.nombre = 'Leonardo'">LEONARDO</button>
+    <button (click)="this.unEstudiante.nombre = 'Leandro'">LEANDRO</button>
+    <button (click)="this.unEstudiante.nombre = 'Lionel'">LIONEL</button>
+</div>
